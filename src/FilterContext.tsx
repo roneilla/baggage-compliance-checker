@@ -1,62 +1,94 @@
-import { createContext, useReducer, useContext } from 'react';
-import {
-	FilterActionKind,
-	filterReducer,
-	initialState,
-	InitialStateProps,
-} from './filterReducer';
+import { useReducer, createContext, ReactElement, useMemo } from 'react';
 
-interface LimitProps {
-	type: string;
+export const initState = {
+	dimensions: {
+		w: 0,
+		h: 0,
+		d: 0,
+	},
+};
+
+type DimensionStateType = {
 	dimensions: {
 		w: number;
 		h: number;
 		d: number;
 	};
-	weight?: boolean;
-}
+};
 
-interface AirlineProps {
-	name: string;
-	limits: Array<LimitProps>;
-}
+const REDUCER_ACTION_TYPE = {
+	SET_DIMENSIONS: 'SET_DIMENSIONS',
+};
 
-interface AddProps {
-	airline: Array<AirlineProps>;
-}
+type ReducerAction = {
+	type: string;
+	payload?: DimensionStateType;
+};
 
-export const FilterContext = createContext<InitialStateProps>(initialState);
+const reducer = (
+	state: DimensionStateType,
+	action: ReducerAction
+): DimensionStateType => {
+	switch (action.type) {
+		case REDUCER_ACTION_TYPE.SET_DIMENSIONS:
+			if (!action.payload) {
+				throw new Error();
+			}
 
-export const FilterProvider = ({ children }: any) => {
-	const [state, dispatch] = useReducer(filterReducer, initialState);
+			const { w, h, d } = action.payload.dimensions;
 
-	const addAirlines = ({ airline }: AddProps) => {
-		dispatch({
-			type: FilterActionKind.ADD_AIRLINES,
-			payload: {
-				selectedAirlines: airline,
-			},
-		});
+			return {
+				...state,
+				dimensions: {
+					w: w,
+					h: h,
+					d: d,
+				},
+			};
+
+		default:
+			throw new Error();
+	}
+};
+
+const useDimensionsContext = (initState: DimensionStateType) => {
+	const [state, dispatch] = useReducer(reducer, initState);
+
+	const REDUCER_ACTIONS = useMemo(() => {
+		return REDUCER_ACTION_TYPE;
+	}, []);
+
+	const { w, h, d } = state.dimensions;
+
+	const dimensions = {
+		w: w,
+		h: h,
+		d: d,
 	};
 
-	const value = {
-		selectedAirlines: state.selectedAirlines,
-		addAirlines,
-	};
+	return { dispatch, REDUCER_ACTIONS, dimensions };
+};
 
+export type UseDimensionsContextType = ReturnType<typeof useDimensionsContext>;
+
+const initDimensionsContextState: UseDimensionsContextType = {
+	dispatch: () => {},
+	REDUCER_ACTIONS: REDUCER_ACTION_TYPE,
+	dimensions: { w: 0, h: 0, d: 0 },
+};
+
+const DimensionsContext = createContext<UseDimensionsContextType>(
+	initDimensionsContextState
+);
+
+type ChildrenType = { children?: ReactElement | ReactElement[] };
+
+export const DimensionProvider = ({ children }: ChildrenType): ReactElement => {
 	return (
-		<FilterContext.Provider value={value}>{children}</FilterContext.Provider>
+		<DimensionsContext.Provider value={useDimensionsContext(initState)}>
+			{children}
+		</DimensionsContext.Provider>
 	);
 };
 
-const useFilter = () => {
-	const context = useContext(FilterContext);
-
-	if (context === undefined) {
-		throw new Error('useShop must be used within ShopContext');
-	}
-
-	return context;
-};
-
-export default useFilter;
+export default DimensionsContext;
