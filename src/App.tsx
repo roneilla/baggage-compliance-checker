@@ -1,19 +1,21 @@
 import React from 'react';
 import CheckerForm from './components/checkerForm';
-import useDimensions from './hooks/dimensions';
+import useFilter from './hooks/filter';
 
 function App() {
-	const { dimensions } = useDimensions();
+	const { dimensions, selectedAirlines } = useFilter();
 
 	const { w, h, d } = dimensions;
 
 	return (
-		<div className="p-4">
+		<div className="p-4 flex gap-4">
 			<CheckerForm />
-			<div className="w-full bg-slate-100 rounded p-4">
+			<div className="flex-1 bg-gray-100 rounded p-4">
 				<div>{w}</div>
 				<div>{h}</div>
 				<div>{d}</div>
+
+				<div>{selectedAirlines.length}</div>
 			</div>
 		</div>
 	);

@@ -10,7 +10,7 @@ export const airlineData = [
 			{
 				type: 'carryOn',
 				dimensions: {
-					l: 15.5,
+					d: 15.5,
 					w: 21.5,
 					h: 9,
 				},
@@ -19,7 +19,7 @@ export const airlineData = [
 			{
 				type: 'personalItem',
 				dimensions: {
-					l: 17,
+					d: 17,
 					w: 6,
 					h: 13,
 				},
@@ -33,7 +33,7 @@ export const airlineData = [
 			{
 				type: 'carryOn',
 				dimensions: {
-					l: 21.5,
+					d: 21.5,
 					h: 15.5,
 					w: 9,
 				},
@@ -42,7 +42,7 @@ export const airlineData = [
 			{
 				type: 'personalItem',
 				dimensions: {
-					l: 16,
+					d: 16,
 					h: 6,
 					w: 13,
 				},
@@ -51,12 +51,12 @@ export const airlineData = [
 		],
 	},
 	{
-		name: 'Philippines Airlines',
+		name: 'Philippine Airlines',
 		limits: [
 			{
 				type: 'carryOn',
 				dimensions: {
-					l: 22,
+					d: 22,
 					h: 14,
 					w: 9,
 				},
@@ -65,7 +65,7 @@ export const airlineData = [
 			{
 				type: 'personalItem',
 				dimensions: {
-					l: 18,
+					d: 18,
 					h: 8,
 					w: 14,
 				},
@@ -79,7 +79,7 @@ export const airlineData = [
 			{
 				type: 'carryOn',
 				dimensions: {
-					l: 22,
+					d: 22,
 					h: 14,
 					w: 9,
 				},
@@ -88,11 +88,71 @@ export const airlineData = [
 			{
 				type: 'personalItem',
 				dimensions: {
-					l: 18,
+					d: 18,
 					h: 8,
 					w: 14,
 				},
 				weight: false,
+			},
+		],
+	},
+	{
+		name: 'Air Transat',
+		limits: [
+			{
+				type: 'carryOn',
+				dimensions: {
+					d: 9,
+					h: 16,
+					w: 20,
+				},
+				weight: false,
+			},
+			{
+				type: 'personalItem',
+				dimensions: {
+					d: 5,
+					h: 17,
+					w: 12,
+				},
+				weight: false,
+			},
+		],
+	},
+	{
+		name: 'jetBlue',
+		limits: [
+			{
+				type: 'carryOn',
+				dimensions: {
+					d: 22,
+					h: 14,
+					w: 9,
+				},
+				weight: false,
+			},
+			{
+				type: 'personalItem',
+				dimensions: {
+					d: 17,
+					h: 13,
+					w: 8,
+				},
+				weight: false,
+			},
+		],
+	},
+	{
+		name: 'Delta Airlines',
+		limits: [
+			{
+				type: 'carryOn',
+				dimensions: {
+					d: 22,
+					h: 14,
+					w: 9,
+				},
+				weight: 15,
 			},
 		],
 	},

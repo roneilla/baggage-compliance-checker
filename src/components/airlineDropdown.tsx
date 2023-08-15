@@ -1,6 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { airlineData } from '../data';
+
+import useFilter from '../hooks/filter';
 
 interface CheckboxProps {
 	value?: boolean;
@@ -14,11 +16,14 @@ interface AirlineOptionProps {
 }
 
 const AirlineDropdown = () => {
+	const { REDUCER_ACTIONS, dispatch } = useFilter();
+
 	const [openDropdown, setOpenDropdown] = useState(false);
 	const [allSelected, setAllSelected] = useState(true);
 
-	const [selectedAirlines, setSelectedAirlines] =
-		useState<AirlineOptionProps[]>(airlineData);
+	const data = airlineData.map((item) => item.name);
+
+	const [selAir, setSelAir] = useState<string[]>(data);
 
 	const checkbox = 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded ';
 
@@ -27,18 +32,16 @@ const AirlineDropdown = () => {
 	}
 
 	const editAirlinesArray = ({ airlineInd }: EditProps) => {
-		const airlinesArr = [...selectedAirlines];
+		const airlinesArr = [...selAir];
 
-		const index = airlinesArr.findIndex(
-			(element) => element.name === airlineInd
-		);
+		const index = airlinesArr.findIndex((element) => element === airlineInd);
 
 		if (index === -1) {
 			const newLine = airlineData.findIndex(
 				(element) => element.name === airlineInd
 			);
 
-			airlinesArr.splice(newLine, 0, airlineData[newLine]);
+			airlinesArr.splice(newLine, 0, airlineData[newLine].name);
 		} else {
 			airlinesArr.splice(index, 1);
 		}
@@ -47,8 +50,22 @@ const AirlineDropdown = () => {
 			setAllSelected(true);
 		}
 
-		setSelectedAirlines((prev) => [...airlinesArr]);
+		setSelAir((prev) => [...airlinesArr]);
 	};
+
+	const selectOnly = (label: string) => {
+		setAllSelected(false);
+		setSelAir((prev) => [label]);
+	};
+
+	useEffect(() => {
+		dispatch({
+			type: REDUCER_ACTIONS.SET_AIRLINES,
+			payload: {
+				selectedAirlines: selAir,
+			},
+		});
+	}, [selAir]);
 
 	const Checkbox = ({ value = true, label, index }: CheckboxProps) => {
 		const onChangeHandler = () => {
@@ -58,7 +75,7 @@ const AirlineDropdown = () => {
 
 		const isChecked = allSelected
 			? true
-			: selectedAirlines.findIndex((element) => element.name === label) === -1
+			: selAir.findIndex((element) => element === label) === -1
 			? false
 			: true;
 
@@ -76,7 +93,11 @@ const AirlineDropdown = () => {
 					className="ml-2 text-sm text-gray-900 dark:text-gray-300">
 					{label}
 				</label>
-				<button className="ml-4 text-sm font-medium text-blue-600">Only</button>
+				<button
+					className="ml-4 text-sm font-medium text-blue-600"
+					onClick={() => selectOnly(label)}>
+					Only
+				</button>
 			</>
 		);
 	};
@@ -91,7 +112,6 @@ const AirlineDropdown = () => {
 
 	return (
 		<div className="mt-4">
-			<div>This is {selectedAirlines.length}</div>
 			<div>
 				<p className="font-bold text-sm">Select airline(s)</p>
 				<div
@@ -99,8 +119,8 @@ const AirlineDropdown = () => {
 					onClick={() => setOpenDropdown(!openDropdown)}>
 					{allSelected
 						? 'All'
-						: selectedAirlines.length > 0
-						? selectedAirlines.map((li) => li.name)
+						: selAir.length > 0
+						? selAir.map((li) => li + ', ')
 						: 'Select airline'}
 				</div>
 			</div>
@@ -115,9 +135,9 @@ const AirlineDropdown = () => {
 								className={checkbox}
 								onChange={() => {
 									if (!allSelected) {
-										setSelectedAirlines(airlineData);
+										setSelAir(data);
 									} else {
-										setSelectedAirlines([]);
+										setSelAir([]);
 									}
 									setAllSelected(!allSelected);
 								}}

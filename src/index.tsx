@@ -3,16 +3,16 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { DimensionProvider } from './FilterContext';
+import { FilterProvider } from './FilterContext';
 
 const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement
 );
 root.render(
 	<React.StrictMode>
-		<DimensionProvider>
+		<FilterProvider>
 			<App />
-		</DimensionProvider>
+		</FilterProvider>
 	</React.StrictMode>
 );
 
