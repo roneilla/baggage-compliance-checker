@@ -4,6 +4,8 @@ import { airlineData } from '../data';
 
 import useFilter from '../hooks/filter';
 
+import { ChevronDownIcon } from '@heroicons/react/24/solid';
+
 interface CheckboxProps {
 	value?: boolean;
 	label: string;
@@ -25,7 +27,7 @@ const AirlineDropdown = () => {
 
 	const [selAir, setSelAir] = useState<string[]>(data);
 
-	const checkbox = 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded ';
+	const checkbox = 'w-4 h-4 text-sky-500 rounded ';
 
 	interface EditProps {
 		airlineInd?: string | boolean;
@@ -94,7 +96,7 @@ const AirlineDropdown = () => {
 					{label}
 				</label>
 				<button
-					className="ml-4 text-sm font-medium text-blue-600"
+					className="ml-4 text-sm font-medium text-sky-500"
 					onClick={() => selectOnly(label)}>
 					Only
 				</button>
@@ -114,47 +116,67 @@ const AirlineDropdown = () => {
 		<div className="mt-4">
 			<div>
 				<p className="font-bold text-sm">Select airline(s)</p>
-				<div
-					className="bg-white p-4 rounded mt-2"
-					onClick={() => setOpenDropdown(!openDropdown)}>
-					{allSelected
-						? 'All'
-						: selAir.length > 0
-						? selAir.map((li) => li + ', ')
-						: 'Select airline'}
+				<div className={`bg-white mt-2 border rounded`}>
+					<div
+						className="flex justify-between items-center gap-4 py-2 px-3"
+						onClick={() => setOpenDropdown(!openDropdown)}>
+						{allSelected
+							? `All (${selAir.length})`
+							: selAir.length > 4
+							? `${selAir[0]},   ${selAir[1]}, ${selAir[2]}, ${
+									selAir[3]
+							  },... +${selAir.length - 4}`
+							: selAir.length > 0
+							? selAir.map(
+									(li, index) =>
+										`${li}${index !== selAir.length - 1 ? ', ' : ''}`
+							  )
+							: 'Select airline'}
+
+						<ChevronDownIcon
+							className={`w-4 h-4 text-gray-500 ${
+								openDropdown ? 'rotate-180' : ''
+							}`}
+						/>
+					</div>
+
+					{openDropdown && (
+						<div className="border-t max-h-48 overflow-y-scroll">
+							<ol>
+								<li className="p-2 hover:bg-slate-100 cursor-pointer">
+									<input
+										id="allSelected"
+										type="checkbox"
+										checked={allSelected}
+										className={checkbox}
+										onChange={() => {
+											if (!allSelected) {
+												setSelAir(data);
+											} else {
+												setSelAir([]);
+											}
+											setAllSelected(!allSelected);
+										}}
+									/>
+									<label
+										htmlFor="allSelected"
+										className="ml-2 text-sm text-gray-900 dark:text-gray-300">
+										All
+									</label>
+								</li>
+
+								{airlineData.map((airline, index) => (
+									<AirlineOption
+										key={index}
+										name={airline.name}
+										index={index}
+									/>
+								))}
+							</ol>
+						</div>
+					)}
 				</div>
 			</div>
-			{openDropdown && (
-				<div className="bg-white mt-2">
-					<ol>
-						<li className="p-2 hover:bg-slate-100 cursor-pointer">
-							<input
-								id="allSelected"
-								type="checkbox"
-								checked={allSelected}
-								className={checkbox}
-								onChange={() => {
-									if (!allSelected) {
-										setSelAir(data);
-									} else {
-										setSelAir([]);
-									}
-									setAllSelected(!allSelected);
-								}}
-							/>
-							<label
-								htmlFor="allSelected"
-								className="ml-2 text-sm text-gray-900 dark:text-gray-300">
-								All
-							</label>
-						</li>
-
-						{airlineData.map((airline, index) => (
-							<AirlineOption key={index} name={airline.name} index={index} />
-						))}
-					</ol>
-				</div>
-			)}
 		</div>
 	);
 };

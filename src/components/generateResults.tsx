@@ -111,7 +111,7 @@ const GenerateResults = ({ generate = false }: GenerateProps) => {
 					id="showLimit"
 					type="checkbox"
 					checked={showLimits}
-					className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded "
+					className="w-4 h-4 text-sky-500 bg-gray-100 border-gray-300 rounded "
 					onChange={() => setShowLimits((prev) => !prev)}
 				/>
 				<label

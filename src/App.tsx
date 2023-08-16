@@ -8,14 +8,10 @@ function App() {
 	const { w, h, d } = dimensions;
 
 	return (
-		<div className="p-4 flex gap-4">
-			<CheckerForm />
-			<div className="flex-1 bg-gray-100 rounded p-4">
-				<div>{w}</div>
-				<div>{h}</div>
-				<div>{d}</div>
-
-				<div>{selectedAirlines.length}</div>
+		<div className="bg-gray-50 min-h-screen">
+			<div className="mx-auto max-w-screen-sm p-4">
+				<h1 className="text-3xl font-extrabold">Luggage Checker</h1>
+				<CheckerForm />
 			</div>
 		</div>
 	);
