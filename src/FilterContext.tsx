@@ -11,9 +11,9 @@ export const initState = {
 
 type FilterStateType = {
 	dimensions?: {
-		w: number;
-		h: number;
-		d: number;
+		w: string | number;
+		h: string | number;
+		d: string | number;
 	};
 	selectedAirlines?: Array<string>;
 };

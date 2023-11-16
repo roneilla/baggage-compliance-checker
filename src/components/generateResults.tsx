@@ -11,7 +11,7 @@ interface GenerateProps {
 
 interface FieldProps {
 	label: string;
-	data: number;
+	data: string | number;
 }
 
 interface ResultCardProps {
@@ -19,9 +19,9 @@ interface ResultCardProps {
 }
 
 interface CheckProps {
-	compW: number;
-	compH: number;
-	compD: number;
+	compW: string | number;
+	compH: string | number;
+	compD: string | number;
 }
 
 const GenerateResults = ({ generate = false }: GenerateProps) => {
