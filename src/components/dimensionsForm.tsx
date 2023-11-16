@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useFilter from '../hooks/filter';
+import { NumberInput } from '@mantine/core';
 
 const DimensionsForm = () => {
 	const labelClass = 'font-bold text-sm mb-4';
@@ -10,9 +11,9 @@ const DimensionsForm = () => {
 
 	const { w = 0, h = 0, d = 0 } = dimensions;
 
-	const [width, setWidth] = useState(w);
-	const [height, setHeight] = useState(h);
-	const [depth, setDepth] = useState(d);
+	const [width, setWidth] = useState<string | number>(w);
+	const [height, setHeight] = useState<string | number>(h);
+	const [depth, setDepth] = useState<string | number>(d);
 
 	const onSetDimensions = () => {
 		dispatch({
@@ -41,42 +42,30 @@ const DimensionsForm = () => {
 			</div>
 			<div className="flex gap-4">
 				<div>
-					<label htmlFor="width" className={labelClass}>
-						Width
-					</label>
-					<input
-						className={textField}
-						id="width"
-						type="text"
-						placeholder="0"
-						// value={width}
-						onChange={(e: any) => setWidth(e.target.value)}
+					<NumberInput
+						label="Width"
+						value={width}
+						onChange={setWidth}
+						hideControls
+						suffix=" in"
 					/>
 				</div>
 				<div>
-					<label htmlFor="height" className={labelClass}>
-						Height
-					</label>
-					<input
-						className={textField}
-						id="height"
-						type="text"
-						placeholder="0"
-						// value={height}
-						onChange={(e: any) => setHeight(e.target.value)}
+					<NumberInput
+						label="Height"
+						value={height}
+						onChange={setHeight}
+						hideControls
+						suffix=" in"
 					/>
 				</div>
 				<div>
-					<label htmlFor="depth" className={labelClass}>
-						Depth
-					</label>
-					<input
-						className={textField}
-						id="depth"
-						type="text"
-						placeholder="0"
-						// value={depth}
-						onChange={(e: any) => setDepth(e.target.value)}
+					<NumberInput
+						label="Depth"
+						value={depth}
+						onChange={setDepth}
+						hideControls
+						suffix=" in"
 					/>
 				</div>
 				{/* <button onClick={onSetDimensions}>Set dimensions</button> */}
