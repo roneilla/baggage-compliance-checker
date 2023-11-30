@@ -36,14 +36,15 @@ const DimensionsForm = () => {
 
 	return (
 		<>
-			<div className="my-4">
+			<h2>How big is your bag?</h2>
+			<p className="my-4">
 				We'll run through every combination of numbers, so don't worry about the
 				order of appearance.
-			</div>
+			</p>
 			<div className="flex gap-4">
 				<div>
 					<NumberInput
-						label="Width"
+						// label="Width"
 						value={width}
 						onChange={setWidth}
 						hideControls
@@ -52,7 +53,7 @@ const DimensionsForm = () => {
 				</div>
 				<div>
 					<NumberInput
-						label="Height"
+						// label="Height"
 						value={height}
 						onChange={setHeight}
 						hideControls
@@ -61,7 +62,7 @@ const DimensionsForm = () => {
 				</div>
 				<div>
 					<NumberInput
-						label="Depth"
+						// label="Depth"
 						value={depth}
 						onChange={setDepth}
 						hideControls

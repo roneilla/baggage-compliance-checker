@@ -24,21 +24,14 @@ interface CheckProps {
 	compD: string | number;
 }
 
-const GenerateResults = ({ generate = false }: GenerateProps) => {
-	const { dimensions, selectedAirlines } = useFilter();
+const GenerateResults = ({ generate = true }: GenerateProps) => {
+	const { dimensions } = useFilter();
+
+	const selectedAirlines = airlineData.map((item) => item.name);
 
 	const [showLimits, setShowLimits] = useState(true);
 
 	const { w = 0, h = 0, d = 0 } = dimensions;
-
-	const DisabledField = ({ label, data }: FieldProps) => {
-		return (
-			<div className="flex justify-between bg-gray-200 w-1/3 p-2 rounded">
-				<div> {data}</div>
-				<div className="text-gray-400"> {label}</div>
-			</div>
-		);
-	};
 
 	const checkDiffConfig = ({ compW, compH, compD }: CheckProps) => {
 		const excluding = (i: any) => (xs: any) =>
@@ -96,15 +89,14 @@ const GenerateResults = ({ generate = false }: GenerateProps) => {
 		);
 	};
 
-	if (!generate) return <></>;
+	if (!generate)
+		return (
+			<>
+				<p>Click the button!</p>
+			</>
+		);
 	return (
 		<div>
-			<div className="flex gap-4">
-				<DisabledField label="w" data={w} />
-				<DisabledField label="h" data={h} />
-				<DisabledField label="d" data={d} />
-			</div>
-
 			<h2>By airlines</h2>
 			<div>
 				<input

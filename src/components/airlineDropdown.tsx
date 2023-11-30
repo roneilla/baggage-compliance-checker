@@ -113,7 +113,7 @@ const AirlineDropdown = () => {
 	};
 
 	return (
-		<div className="mt-4">
+		<div className="mt-4 hidden">
 			<div>
 				<p className="font-bold text-sm">Select airline(s)</p>
 				<div className={`bg-white mt-2 border rounded`}>
