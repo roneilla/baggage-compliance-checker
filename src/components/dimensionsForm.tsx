@@ -36,8 +36,8 @@ const DimensionsForm = () => {
 
 	return (
 		<>
-			<h2>How big is your bag?</h2>
-			<p className="my-4">
+			<h2 className="text-xl mt-8 font-medium">How big is your bag?</h2>
+			<p className="mt-2 mb-4">
 				We'll run through every combination of numbers, so don't worry about the
 				order of appearance.
 			</p>

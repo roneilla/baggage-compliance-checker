@@ -8,15 +8,23 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
-h1,
-h2 {
-	font-family: 'PP Supply Sans';
+h1 {
+	font-family: 'Lilita One', sans-serif;
 }
 
+h2,
 p {
-	font-family: 'PP Stellar';
+	font-family: 'Outfit', sans-serif;
 }
 
 .page {
-	background-color: #f8f3ec;
+	background-color: #fbf8f5;
+}
+
+.accentText {
+	color: #1a59fb;
+}
+
+.accentBg {
+	background-color: #e7edfc;
 }

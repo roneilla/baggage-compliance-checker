@@ -13,17 +13,14 @@ function App() {
 	const { w, h, d } = dimensions;
 
 	return (
-		<div className="h-screen overflow-hidden flex">
-			<div className="h-full flex-1 p-8 flex flex-col">
-				<div className="h-full p-8 bg-white rounded">
-					<h1 className="text-3xl font-extrabold">Does your bag fit?</h1>
-					<p>Find out which airlines can fit your bag!</p>
+		<div className="flex justify-center flex-col max-w-xl mx-auto">
+			<div className="p-8">
+				<h1 className="text-4xl accentText">Does your bag fit?</h1>
+				<p className="mt-2">Find out which airlines can fit your bag.</p>
 
-					<div>
-						<DimensionsForm />
-					</div>
+				<DimensionsForm />
 
-					{/* <button
+				{/* <button
 						className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded my-4"
 						onClick={() => setGenerate(true)}>
 						Generate
@@ -35,20 +32,18 @@ function App() {
 						<ArrowUturnLeftIcon className="w-4 h-4 text-sky-500" />
 						Reset
 					</button> */}
-				</div>
-				<div className="">
-					<p>All rights reserved</p>
-					<div className="flex gap-4">
-						<p>Created by roneilla bumanlag</p>
-						<p>Portfolio</p>
-						<p>Contact</p>
-					</div>
-				</div>
 			</div>
 
-			<div className="h-screen flex-1 p-8">
-				<div className="p-8 rounded h-full bg-white overflow-scroll">
-					<GenerateResults />
+			<div className="p-8 rounded bg-white">
+				<GenerateResults />
+			</div>
+
+			<div className="text-center text-gray-600 py-4 text-sm">
+				<p>Created by Roneilla Bumanlag © 2024</p>
+
+				<div className="flex gap-4 justify-center">
+					<p>Portfolio</p>
+					<p>Contact</p>
 				</div>
 			</div>
 		</div>

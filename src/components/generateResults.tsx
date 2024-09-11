@@ -33,6 +33,8 @@ const GenerateResults = ({ generate = true }: GenerateProps) => {
 
 	const { w = 0, h = 0, d = 0 } = dimensions;
 
+	const num = 4;
+
 	const checkDiffConfig = ({ compW, compH, compD }: CheckProps) => {
 		const excluding = (i: any) => (xs: any) =>
 			[...xs.slice(0, i), ...xs.slice(i + 1)];
@@ -77,12 +79,12 @@ const GenerateResults = ({ generate = true }: GenerateProps) => {
 					)}
 				</div>
 				<div>
-					<div className="font-bold">{airline}</div>
+					<p className="font-bold">{airline}</p>
 					{showLimits && (
-						<div>
+						<p>
 							<span>{`${compW}" `}</span>x<span>{` ${compH}" `}</span>x
 							<span>{`${compD}"`}</span>
-						</div>
+						</p>
 					)}
 				</div>
 			</div>
@@ -97,7 +99,10 @@ const GenerateResults = ({ generate = true }: GenerateProps) => {
 		);
 	return (
 		<div>
-			<h2>By airlines</h2>
+			<div className="p-4 rounded-sm accentBg mb-8">
+				<h2 className="text-xl font-medium">Compliant with {num} airlines</h2>
+			</div>
+
 			<div>
 				<input
 					id="showLimit"
